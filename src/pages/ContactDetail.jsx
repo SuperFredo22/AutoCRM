@@ -100,7 +100,7 @@ export default function ContactDetail() {
               Sauvegarder
             </button>
           )}
-          <button onClick={handleDelete} className="px-3 py-1.5 text-sm border border-red-800 text-red-400 hover:bg-red-900/20 rounded-lg">
+          <button onClick={handleDelete} className="px-3 py-1.5 text-sm border border-red-200 text-red-500 hover:bg-red-50 rounded-lg">
             Supprimer
           </button>
         </div>
@@ -111,7 +111,7 @@ export default function ContactDetail() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className={`text-xs font-semibold px-2 py-0.5 rounded capitalize ${contact.type === 'acheteur' ? 'bg-blue-900 text-blue-300' : 'bg-amber-900 text-amber-300'}`}>
+              <span className={`text-xs font-semibold px-2 py-0.5 rounded capitalize ${contact.type === 'acheteur' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'}`}>
                 {contact.type}
               </span>
               <StatusBadge status={contact.status} />
@@ -127,7 +127,7 @@ export default function ContactDetail() {
               <>
                 <a
                   href={`tel:${contact.phone}`}
-                  className="flex items-center gap-1.5 px-3 py-2 bg-blue-600/20 border border-blue-700 text-blue-400 rounded-lg text-sm hover:bg-blue-600/30"
+                  className="flex items-center gap-1.5 px-3 py-2 bg-blue-50 border border-blue-200 text-blue-700 rounded-lg text-sm hover:bg-blue-100"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -138,7 +138,7 @@ export default function ContactDetail() {
                   href={`https://wa.me/${contact.phone.replace(/\D/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-2 bg-emerald-600/20 border border-emerald-700 text-emerald-400 rounded-lg text-sm hover:bg-emerald-600/30"
+                  className="flex items-center gap-1.5 px-3 py-2 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-lg text-sm hover:bg-emerald-100"
                 >
                   WhatsApp
                 </a>
@@ -174,8 +174,8 @@ export default function ContactDetail() {
                 contact.status === s
                   ? 'bg-blue-600 text-white'
                   : i < currentStatusIndex && contact.status !== 'perdu'
-                  ? 'bg-blue-900/40 text-blue-400'
-                  : 'bg-slate-50 text-slate-400 hover:text-white'
+                  ? 'bg-blue-100 text-blue-600'
+                  : 'bg-slate-50 text-slate-400 hover:text-slate-900'
               }`}
             >
               {STATUS_LABELS[s]}

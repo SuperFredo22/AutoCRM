@@ -115,7 +115,7 @@ export default function VehicleDetail() {
           </button>
           <button
             onClick={handleDelete}
-            className="px-3 py-1.5 text-sm border border-red-800 text-red-400 hover:bg-red-900/20 rounded-lg transition-colors"
+            className="px-3 py-1.5 text-sm border border-red-200 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
           >
             Supprimer
           </button>
@@ -182,7 +182,7 @@ export default function VehicleDetail() {
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
                 vehicle.status === s.value
                   ? 'bg-blue-600 border-blue-500 text-white'
-                  : 'border-slate-200 text-slate-400 hover:border-slate-400 hover:text-white'
+                  : 'border-slate-200 text-slate-400 hover:border-slate-400 hover:text-slate-900'
               }`}
             >
               {s.label}
@@ -235,7 +235,7 @@ export default function VehicleDetail() {
                   <p className="text-slate-400 text-xs capitalize">{c.type} · {c.status}</p>
                 </div>
                 {c.phone && (
-                  <a href={`tel:${c.phone}`} onClick={e => e.stopPropagation()} className="text-blue-400 text-xs hover:text-blue-300">
+                  <a href={`tel:${c.phone}`} onClick={e => e.stopPropagation()} className="text-blue-600 text-xs hover:text-blue-700">
                     {c.phone}
                   </a>
                 )}
@@ -245,7 +245,7 @@ export default function VehicleDetail() {
         )}
         <button
           onClick={() => navigate(`/contacts?vehicle=${id}`)}
-          className="mt-3 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+          className="mt-3 text-sm text-blue-600 hover:text-blue-700 transition-colors"
         >
           + Ajouter un contact
         </button>

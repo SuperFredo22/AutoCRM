@@ -51,7 +51,7 @@ function VehicleCard({ vehicle, getColor, getProfile, onClick }) {
         </div>
         <div className="flex items-center gap-1">
           {vehicle.assigned_to === 'both' ? (
-            <div className="w-7 h-7 rounded-full bg-purple-600 flex items-center justify-center text-xs text-slate-900 font-bold">2</div>
+            <div className="w-7 h-7 rounded-full bg-purple-600 flex items-center justify-center text-xs text-white font-bold">2</div>
           ) : (
             (() => {
               const p = getProfile(vehicle.assigned_to)
@@ -124,7 +124,7 @@ export default function Pipeline() {
 
       {/* Sold banner */}
       {sold.length > 0 && (
-        <div className="bg-emerald-900/20 border border-emerald-800 rounded-xl p-4">
+        <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
           <h2 className="text-emerald-400 font-semibold text-sm mb-3 flex items-center gap-2">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />

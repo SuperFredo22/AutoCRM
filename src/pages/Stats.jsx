@@ -165,11 +165,11 @@ export default function Stats() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-slate-400">Vendus</span>
-                  <span className="text-emerald-400 font-medium">{u.soldCount}</span>
+                  <span className="text-emerald-600 font-medium">{u.soldCount}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-slate-400">Marge générée</span>
-                  <span className="text-emerald-400 font-medium">{formatPrice(u.margin)}</span>
+                  <span className="text-emerald-600 font-medium">{formatPrice(u.margin)}</span>
                 </div>
               </div>
             </div>

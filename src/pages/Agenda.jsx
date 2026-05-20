@@ -189,8 +189,8 @@ export default function Agenda() {
                 mobileDay === d ? 'bg-blue-600 border-blue-500' : 'border-slate-200 hover:border-slate-400'
               }`}
             >
-              <span className="text-xs text-slate-400">{DAY_NAMES[date.getDay()]}</span>
-              <span className={`text-sm font-bold ${isToday ? 'text-blue-400' : 'text-white'}`}>{date.getDate()}</span>
+              <span className={`text-xs ${mobileDay === d ? 'text-blue-100' : 'text-slate-400'}`}>{DAY_NAMES[date.getDay()]}</span>
+              <span className={`text-sm font-bold ${mobileDay === d ? 'text-white' : isToday ? 'text-blue-600' : 'text-slate-800'}`}>{date.getDate()}</span>
               {commonDispo && <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-0.5" />}
             </button>
           )
@@ -221,7 +221,7 @@ export default function Agenda() {
           return (
             <div key={d} className="text-center pb-2">
               <p className="text-slate-400 text-xs">{DAY_NAMES[date.getDay()]}</p>
-              <p className={`text-lg font-bold ${isToday ? 'text-blue-400' : 'text-white'}`}>{date.getDate()}</p>
+              <p className={`text-lg font-bold ${isToday ? 'text-blue-600' : 'text-slate-800'}`}>{date.getDate()}</p>
               {commonDispo && (
                 <span className="text-xs text-emerald-400 font-medium">Tous dispo ✓</span>
               )}
@@ -249,7 +249,7 @@ export default function Agenda() {
               return (
                 <div
                   key={`${d}-${hour}`}
-                  className={`border-b border-[#1e2130] min-h-[20px] relative ${isCommon ? 'bg-emerald-900/10' : ''}`}
+                  className={`border-b border-slate-100 min-h-[20px] relative ${isCommon ? 'bg-emerald-50' : ''}`}
                 >
                   {daySlots.map(s => (
                     <div
@@ -278,7 +278,7 @@ export default function Agenda() {
 
       {/* Add form modal */}
       {showForm && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-4">
+        <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-end sm:items-center justify-center p-4">
           <div className="bg-white rounded-xl border border-slate-200 w-full max-w-md p-5 space-y-3 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <h2 className="text-slate-900 font-semibold">Nouveau créneau</h2>
@@ -368,13 +368,13 @@ export default function Agenda() {
 function DayColumn({ day, slots, appts, getEventColor, onAdd, hasCommon, profiles }) {
   const date = new Date(day)
   return (
-    <div className={`rounded-xl border p-4 space-y-3 ${hasCommon ? 'border-emerald-800 bg-emerald-900/10' : 'border-slate-200 bg-white'}`}>
+    <div className={`rounded-xl border p-4 space-y-3 ${hasCommon ? 'border-emerald-200 bg-emerald-50' : 'border-slate-200 bg-white'}`}>
       <div className="flex items-center justify-between">
         <div>
           <p className="text-slate-900 font-semibold">{DAY_NAMES[date.getDay()]} {date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</p>
           {hasCommon && <p className="text-emerald-400 text-xs">Tous disponibles ✓</p>}
         </div>
-        <button onClick={onAdd} className="text-sm text-blue-400 hover:text-blue-300">+ Ajouter</button>
+        <button onClick={onAdd} className="text-sm text-blue-600 hover:text-blue-700 font-medium">+ Ajouter</button>
       </div>
       {slots.length === 0 && appts.length === 0 ? (
         <p className="text-slate-400 text-sm">Aucun créneau</p>

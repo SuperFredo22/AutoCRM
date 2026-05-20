@@ -104,7 +104,7 @@ export default function Contacts() {
 
       {/* Quick form modal */}
       {showForm && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-4">
+        <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-end sm:items-center justify-center p-4">
           <div className="bg-white rounded-xl border border-slate-200 w-full max-w-md p-5 space-y-3 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-slate-900 font-semibold">Nouveau contact</h2>
@@ -182,7 +182,7 @@ export default function Contacts() {
                 <div className="flex items-center justify-between gap-3">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 mb-0.5">
-                      <span className={`text-xs font-semibold px-1.5 py-0.5 rounded capitalize ${c.type === 'acheteur' ? 'bg-blue-900 text-blue-300' : 'bg-amber-900 text-amber-300'}`}>
+                      <span className={`text-xs font-semibold px-1.5 py-0.5 rounded capitalize ${c.type === 'acheteur' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'}`}>
                         {c.type}
                       </span>
                       <StatusBadge status={c.status} />
@@ -197,11 +197,11 @@ export default function Contacts() {
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
                     {overdue && (
-                      <span className="bg-red-900 text-red-300 text-xs px-2 py-0.5 rounded-full font-medium">Urgent</span>
+                      <span className="bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded-full font-medium">Urgent</span>
                     )}
                     <div className="flex gap-2">
                       {c.phone && (
-                        <a href={`tel:${c.phone}`} onClick={e => e.stopPropagation()} className="text-blue-400 hover:text-blue-300">
+                        <a href={`tel:${c.phone}`} onClick={e => e.stopPropagation()} className="text-blue-600 hover:text-blue-700">
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                           </svg>

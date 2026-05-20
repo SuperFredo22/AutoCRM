@@ -151,7 +151,7 @@ export default function VehicleForm() {
 
         {/* Margin preview */}
         {margin !== null && (
-          <div className={`rounded-lg p-3 flex items-center justify-between ${margin >= 0 ? 'bg-emerald-900/20 border border-emerald-800' : 'bg-red-900/20 border border-red-800'}`}>
+          <div className={`rounded-lg p-3 flex items-center justify-between ${margin >= 0 ? 'bg-emerald-50 border border-emerald-200' : 'bg-red-50 border border-red-200'}`}>
             <span className="text-sm text-slate-700">Marge estimée</span>
             <span className={`font-bold text-lg ${margin >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
               {margin >= 0 ? '+' : ''}{formatPrice(margin)}
