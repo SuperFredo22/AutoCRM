@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import { profilesService } from '../services/profilesService'
 import { useAuth } from '../contexts/AuthContext'
 
@@ -23,11 +23,11 @@ export default function Settings() {
 
   return (
     <div className="p-4 lg:p-6 max-w-xl mx-auto space-y-6">
-      <h1 className="text-xl font-bold text-white">Paramètres</h1>
+      <h1 className="text-xl font-bold text-slate-900">Paramètres</h1>
 
-      <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] p-5 space-y-4">
-        <h2 className="text-slate-300 font-semibold text-sm">Noms des associés</h2>
-        <p className="text-slate-500 text-xs">Ces noms s'affichent partout dans l'application.</p>
+      <div className="bg-white rounded-xl border border-slate-200 p-5 space-y-4">
+        <h2 className="text-slate-700 font-semibold text-sm">Noms des associés</h2>
+        <p className="text-slate-400 text-xs">Ces noms s'affichent partout dans l'application.</p>
 
         {profiles.map(p => (
           <ProfileRow
@@ -41,27 +41,27 @@ export default function Settings() {
         ))}
       </div>
 
-      <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] p-5 space-y-3">
-        <h2 className="text-slate-300 font-semibold text-sm">Couleurs</h2>
+      <div className="bg-white rounded-xl border border-slate-200 p-5 space-y-3">
+        <h2 className="text-slate-700 font-semibold text-sm">Couleurs</h2>
         <div className="space-y-2">
           {profiles.map(p => (
             <div key={p.id} className="flex items-center gap-3">
               <div className="w-6 h-6 rounded-full flex-shrink-0" style={{ backgroundColor: p.color }} />
-              <span className="text-slate-300 text-sm">{p.name}</span>
-              <code className="text-slate-500 text-xs ml-auto">{p.color}</code>
+              <span className="text-slate-700 text-sm">{p.name}</span>
+              <code className="text-slate-400 text-xs ml-auto">{p.color}</code>
             </div>
           ))}
           <div className="flex items-center gap-3">
             <div className="w-6 h-6 rounded-full flex-shrink-0 bg-purple-600" />
-            <span className="text-slate-300 text-sm">Les deux</span>
-            <code className="text-slate-500 text-xs ml-auto">#8B5CF6</code>
+            <span className="text-slate-700 text-sm">Les deux</span>
+            <code className="text-slate-400 text-xs ml-auto">#8B5CF6</code>
           </div>
         </div>
-        <p className="text-slate-600 text-xs">Les couleurs sont fixes en V1.</p>
+        <p className="text-slate-400 text-xs">Les couleurs sont fixes en V1.</p>
       </div>
 
-      <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] p-5">
-        <h2 className="text-slate-300 font-semibold text-sm mb-3">Mon compte</h2>
+      <div className="bg-white rounded-xl border border-slate-200 p-5">
+        <h2 className="text-slate-700 font-semibold text-sm mb-3">Mon compte</h2>
         <p className="text-slate-400 text-sm">{user?.email}</p>
       </div>
     </div>
@@ -73,16 +73,16 @@ function ProfileRow({ profile, isMe, saving, saved, onSave }) {
 
   return (
     <div className="flex items-center gap-3">
-      <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: profile.color }}>
+      <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-slate-900 text-sm font-bold" style={{ backgroundColor: profile.color }}>
         {name.slice(0, 1).toUpperCase()}
       </div>
       <input
-        className="flex-1 bg-[#0f1117] border border-[#2a2d3e] rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 text-sm"
+        className="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:border-blue-500 text-sm"
         value={name}
         onChange={e => setName(e.target.value)}
         placeholder="Prénom"
       />
-      {isMe && <span className="text-slate-500 text-xs shrink-0">Moi</span>}
+      {isMe && <span className="text-slate-400 text-xs shrink-0">Moi</span>}
       <button
         onClick={() => onSave(name)}
         disabled={saving || name === profile.name}

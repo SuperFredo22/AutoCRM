@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+﻿import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { vehiclesService } from '../services/vehiclesService'
 import { useProfiles } from '../hooks/useProfiles'
@@ -46,7 +46,7 @@ export default function VehicleList() {
   return (
     <div className="p-4 lg:p-6 space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-white">Véhicules</h1>
+        <h1 className="text-xl font-bold text-slate-900">Véhicules</h1>
         <button
           onClick={() => navigate('/vehicles/new')}
           className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg"
@@ -65,12 +65,12 @@ export default function VehicleList() {
           placeholder="Rechercher..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="bg-[#1e2130] border border-[#2a2d3e] rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 flex-1 min-w-[160px]"
+          className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 placeholder-slate-500 focus:outline-none focus:border-blue-500 flex-1 min-w-[160px]"
         />
         <select
           value={filterType}
           onChange={e => setFilterType(e.target.value)}
-          className="bg-[#1e2130] border border-[#2a2d3e] rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none"
+          className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none"
         >
           <option value="all">Tous types</option>
           <option value="achat">Achat</option>
@@ -79,7 +79,7 @@ export default function VehicleList() {
         <select
           value={filterStatus}
           onChange={e => setFilterStatus(e.target.value)}
-          className="bg-[#1e2130] border border-[#2a2d3e] rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none"
+          className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none"
         >
           <option value="all">Tous statuts</option>
           <option value="sourcing">Sourcing</option>
@@ -98,7 +98,7 @@ export default function VehicleList() {
       ) : (
         <div className="space-y-2">
           {filtered.length === 0 && (
-            <p className="text-slate-500 text-sm text-center py-8">Aucun véhicule trouvé</p>
+            <p className="text-slate-400 text-sm text-center py-8">Aucun véhicule trouvé</p>
           )}
           {filtered.map(v => {
             const color = getColor(v.assigned_to)
@@ -112,12 +112,12 @@ export default function VehicleList() {
                         <VehicleTypeBadge type={v.type} />
                         <StatusBadge status={v.status} />
                       </div>
-                      <p className="text-white font-semibold text-sm">{v.brand} {v.model} {v.year && `(${v.year})`}</p>
+                      <p className="text-slate-900 font-semibold text-sm">{v.brand} {v.model} {v.year && `(${v.year})`}</p>
                       <p className="text-slate-400 text-xs">{v.mileage?.toLocaleString('fr-FR') ?? '—'} km{v.source ? ` · ${v.source}` : ''}</p>
                     </div>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="text-white text-sm font-semibold">{formatPrice(v.listing_price)}</p>
+                    <p className="text-slate-900 text-sm font-semibold">{formatPrice(v.listing_price)}</p>
                     {margin !== null && (
                       <p className={`text-xs font-medium ${margin >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                         {margin >= 0 ? '+' : ''}{formatPrice(margin)}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { contactsService } from '../services/contactsService'
 import { vehiclesService } from '../services/vehiclesService'
@@ -12,8 +12,8 @@ const STATUS_LABELS = { nouveau: 'Nouveau', contacte: 'Contacté', rencontre: 'R
 
 function Section({ title, children }) {
   return (
-    <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] p-4">
-      <h3 className="text-slate-300 font-semibold text-sm mb-4">{title}</h3>
+    <div className="bg-white rounded-xl border border-slate-200 p-4">
+      <h3 className="text-slate-700 font-semibold text-sm mb-4">{title}</h3>
       {children}
     </div>
   )
@@ -80,19 +80,19 @@ export default function ContactDetail() {
 
   const color = getColor(contact.assigned_to)
   const currentStatusIndex = PIPELINE_STATUSES.indexOf(contact.status)
-  const inputClass = "w-full bg-[#0f1117] border border-[#2a2d3e] rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm"
+  const inputClass = "w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-900 placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm"
 
   return (
     <div className="p-4 lg:p-6 max-w-2xl mx-auto space-y-4">
       <div className="flex items-center justify-between">
-        <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-slate-400 hover:text-white text-sm">
+        <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-slate-400 hover:text-slate-900 text-sm">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
           Retour
         </button>
         <div className="flex gap-2">
-          <button onClick={() => setEditing(!editing)} className="px-3 py-1.5 text-sm border border-[#2a2d3e] text-slate-300 hover:text-white rounded-lg">
+          <button onClick={() => setEditing(!editing)} className="px-3 py-1.5 text-sm border border-slate-200 text-slate-700 hover:text-slate-900 rounded-lg">
             {editing ? 'Annuler' : 'Modifier'}
           </button>
           {editing && (
@@ -107,7 +107,7 @@ export default function ContactDetail() {
       </div>
 
       {/* Header */}
-      <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] p-5" style={{ borderLeft: `4px solid ${color}` }}>
+      <div className="bg-white rounded-xl border border-slate-200 p-5" style={{ borderLeft: `4px solid ${color}` }}>
         <div className="flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
@@ -119,7 +119,7 @@ export default function ContactDetail() {
             {editing ? (
               <input className={inputClass} value={form.name ?? ''} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
             ) : (
-              <h1 className="text-2xl font-bold text-white">{contact.name}</h1>
+              <h1 className="text-2xl font-bold text-slate-900">{contact.name}</h1>
             )}
           </div>
           <div className="flex gap-2 shrink-0">
@@ -147,18 +147,18 @@ export default function ContactDetail() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-[#2a2d3e]">
+        <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-slate-200">
           <div>
-            <p className="text-slate-500 text-xs mb-1">Téléphone</p>
+            <p className="text-slate-400 text-xs mb-1">Téléphone</p>
             {editing
               ? <input className={inputClass} value={form.phone ?? ''} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
-              : <p className="text-slate-300 text-sm">{contact.phone ?? '—'}</p>}
+              : <p className="text-slate-700 text-sm">{contact.phone ?? '—'}</p>}
           </div>
           <div>
-            <p className="text-slate-500 text-xs mb-1">Email</p>
+            <p className="text-slate-400 text-xs mb-1">Email</p>
             {editing
               ? <input className={inputClass} value={form.email ?? ''} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
-              : <p className="text-slate-300 text-sm">{contact.email ?? '—'}</p>}
+              : <p className="text-slate-700 text-sm">{contact.email ?? '—'}</p>}
           </div>
         </div>
       </div>
@@ -175,7 +175,7 @@ export default function ContactDetail() {
                   ? 'bg-blue-600 text-white'
                   : i < currentStatusIndex && contact.status !== 'perdu'
                   ? 'bg-blue-900/40 text-blue-400'
-                  : 'bg-[#0f1117] text-slate-500 hover:text-white'
+                  : 'bg-slate-50 text-slate-400 hover:text-white'
               }`}
             >
               {STATUS_LABELS[s]}
@@ -183,7 +183,7 @@ export default function ContactDetail() {
           ))}
           <button
             onClick={() => contactsService.update(id, { status: 'perdu' }).then(({ data }) => data && setContact(data))}
-            className={`px-2 py-1.5 rounded text-xs font-medium transition-colors ${contact.status === 'perdu' ? 'bg-red-600 text-white' : 'bg-[#0f1117] text-slate-500 hover:text-red-400'}`}
+            className={`px-2 py-1.5 rounded text-xs font-medium transition-colors ${contact.status === 'perdu' ? 'bg-red-600 text-white' : 'bg-slate-50 text-slate-400 hover:text-red-400'}`}
           >
             Perdu
           </button>
@@ -199,14 +199,14 @@ export default function ContactDetail() {
           </select>
         ) : contact.vehicles ? (
           <div
-            className="p-3 bg-[#0f1117] rounded-lg cursor-pointer hover:bg-[#141720]"
+            className="p-3 bg-slate-50 rounded-lg cursor-pointer hover:bg-white"
             onClick={() => navigate(`/vehicles/${contact.vehicles.id}`)}
           >
-            <p className="text-white text-sm font-medium">{contact.vehicles.brand} {contact.vehicles.model}</p>
+            <p className="text-slate-900 text-sm font-medium">{contact.vehicles.brand} {contact.vehicles.model}</p>
             <p className="text-slate-400 text-xs">{contact.vehicles.year} · <StatusBadge status={contact.vehicles.status} /></p>
           </div>
         ) : (
-          <p className="text-slate-500 text-sm">Aucun véhicule associé</p>
+          <p className="text-slate-400 text-sm">Aucun véhicule associé</p>
         )}
       </Section>
 
@@ -214,16 +214,16 @@ export default function ContactDetail() {
       <Section title="Prochaine action">
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <p className="text-slate-500 text-xs mb-1">Action</p>
+            <p className="text-slate-400 text-xs mb-1">Action</p>
             {editing
               ? <input className={inputClass} value={form.next_action ?? ''} onChange={e => setForm(f => ({ ...f, next_action: e.target.value }))} />
-              : <p className="text-slate-300 text-sm">{contact.next_action ?? '—'}</p>}
+              : <p className="text-slate-700 text-sm">{contact.next_action ?? '—'}</p>}
           </div>
           <div>
-            <p className="text-slate-500 text-xs mb-1">Date de relance</p>
+            <p className="text-slate-400 text-xs mb-1">Date de relance</p>
             {editing
               ? <input className={inputClass} type="date" value={form.next_date ?? ''} onChange={e => setForm(f => ({ ...f, next_date: e.target.value }))} />
-              : <p className={`text-sm ${contact.next_date && new Date(contact.next_date) < new Date() ? 'text-red-400 font-semibold' : 'text-slate-300'}`}>
+              : <p className={`text-sm ${contact.next_date && new Date(contact.next_date) < new Date() ? 'text-red-400 font-semibold' : 'text-slate-700'}`}>
                   {contact.next_date ? new Date(contact.next_date).toLocaleDateString('fr-FR') : '—'}
                 </p>}
           </div>
@@ -234,7 +234,7 @@ export default function ContactDetail() {
       <Section title="Notes & historique">
         <form onSubmit={handleAddNote} className="flex gap-2 mb-4">
           <input
-            className="flex-1 bg-[#0f1117] border border-[#2a2d3e] rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm"
+            className="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-900 placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm"
             placeholder="Ajouter une note..."
             value={note}
             onChange={e => setNote(e.target.value)}
@@ -246,13 +246,13 @@ export default function ContactDetail() {
         {contact.notes ? (
           <div className="space-y-2">
             {contact.notes.split('\n\n').filter(Boolean).reverse().map((n, i) => (
-              <div key={i} className="p-3 bg-[#0f1117] rounded-lg">
-                <p className="text-slate-300 text-sm whitespace-pre-wrap">{n}</p>
+              <div key={i} className="p-3 bg-slate-50 rounded-lg">
+                <p className="text-slate-700 text-sm whitespace-pre-wrap">{n}</p>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-slate-500 text-sm">Aucune note</p>
+          <p className="text-slate-400 text-sm">Aucune note</p>
         )}
       </Section>
     </div>

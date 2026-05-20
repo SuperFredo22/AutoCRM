@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+﻿import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import UserAvatar from '../ui/UserAvatar'
 
@@ -55,16 +55,16 @@ export default function Sidebar() {
   const { profile, signOut } = useAuth()
 
   return (
-    <aside className="w-16 lg:w-56 bg-[#141720] border-r border-[#2a2d3e] flex flex-col h-screen sticky top-0 shrink-0">
+    <aside className="w-16 lg:w-56 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0 shrink-0">
       {/* Logo */}
-      <div className="h-16 flex items-center justify-center lg:justify-start px-4 border-b border-[#2a2d3e]">
+      <div className="h-16 flex items-center justify-center lg:justify-start px-4 border-b border-slate-200">
         <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shrink-0">
-          <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2 .001M13 16H2m11 0l2-4H9" />
           </svg>
         </div>
-        <span className="hidden lg:block ml-2.5 text-white font-bold text-lg">AutoCRM</span>
+        <span className="hidden lg:block ml-2.5 text-slate-900 font-bold text-lg">AutoCRM</span>
       </div>
 
       {/* Nav */}
@@ -76,8 +76,8 @@ export default function Sidebar() {
             className={({ isActive }) =>
               `flex items-center gap-3 px-2 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                 isActive
-                  ? 'bg-blue-600/20 text-blue-400'
-                  : 'text-slate-400 hover:text-white hover:bg-[#1e2130]'
+                  ? 'bg-blue-50 text-blue-600'
+                  : 'text-slate-400 hover:text-slate-900 hover:bg-white'
               }`
             }
           >
@@ -88,12 +88,12 @@ export default function Sidebar() {
       </nav>
 
       {/* Bottom: settings + user */}
-      <div className="border-t border-[#2a2d3e] p-2 space-y-1">
+      <div className="border-t border-slate-200 p-2 space-y-1">
         <NavLink
           to="/settings"
           className={({ isActive }) =>
             `flex items-center gap-3 px-2 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-              isActive ? 'bg-blue-600/20 text-blue-400' : 'text-slate-400 hover:text-white hover:bg-[#1e2130]'
+              isActive ? 'bg-blue-50 text-blue-600' : 'text-slate-400 hover:text-slate-900 hover:bg-white'
             }`
           }
         >
@@ -106,7 +106,7 @@ export default function Sidebar() {
 
         <button
           onClick={signOut}
-          className="w-full flex items-center gap-3 px-2 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-[#1e2130] transition-colors"
+          className="w-full flex items-center gap-3 px-2 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-900 hover:bg-white transition-colors"
         >
           <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

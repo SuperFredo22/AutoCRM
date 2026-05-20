@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { vehiclesService } from '../services/vehiclesService'
 import { profilesService } from '../services/profilesService'
@@ -21,13 +21,13 @@ function formatPrice(n) {
 function Field({ label, children }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-slate-300 mb-1.5">{label}</label>
+      <label className="block text-sm font-medium text-slate-700 mb-1.5">{label}</label>
       {children}
     </div>
   )
 }
 
-const inputClass = "w-full bg-[#0f1117] border border-[#2a2d3e] rounded-lg px-3 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm"
+const inputClass = "w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2.5 text-slate-900 placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm"
 
 export default function VehicleForm() {
   const { id } = useParams()
@@ -91,12 +91,12 @@ export default function VehicleForm() {
   return (
     <div className="p-4 lg:p-6 max-w-2xl mx-auto">
       <div className="flex items-center gap-3 mb-6">
-        <button onClick={() => navigate(-1)} className="text-slate-400 hover:text-white transition-colors">
+        <button onClick={() => navigate(-1)} className="text-slate-400 hover:text-slate-900 transition-colors">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <h1 className="text-xl font-bold text-white">{isEdit ? 'Modifier le véhicule' : 'Nouveau véhicule'}</h1>
+        <h1 className="text-xl font-bold text-slate-900">{isEdit ? 'Modifier le véhicule' : 'Nouveau véhicule'}</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -113,7 +113,7 @@ export default function VehicleForm() {
                     ? t === 'achat'
                       ? 'bg-blue-600/20 border-blue-500 text-blue-400'
                       : 'bg-amber-600/20 border-amber-500 text-amber-400'
-                    : 'border-[#2a2d3e] text-slate-400 hover:border-slate-500'
+                    : 'border-slate-200 text-slate-400 hover:border-slate-400'
                 }`}
               >
                 {t.toUpperCase()}
@@ -152,7 +152,7 @@ export default function VehicleForm() {
         {/* Margin preview */}
         {margin !== null && (
           <div className={`rounded-lg p-3 flex items-center justify-between ${margin >= 0 ? 'bg-emerald-900/20 border border-emerald-800' : 'bg-red-900/20 border border-red-800'}`}>
-            <span className="text-sm text-slate-300">Marge estimée</span>
+            <span className="text-sm text-slate-700">Marge estimée</span>
             <span className={`font-bold text-lg ${margin >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
               {margin >= 0 ? '+' : ''}{formatPrice(margin)}
             </span>
@@ -193,7 +193,7 @@ export default function VehicleForm() {
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="flex-1 border border-[#2a2d3e] text-slate-300 hover:text-white py-2.5 rounded-lg text-sm font-medium transition-colors"
+            className="flex-1 border border-slate-200 text-slate-700 hover:text-slate-900 py-2.5 rounded-lg text-sm font-medium transition-colors"
           >
             Annuler
           </button>

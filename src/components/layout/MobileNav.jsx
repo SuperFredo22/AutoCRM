@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+﻿import { NavLink } from 'react-router-dom'
 
 const NAV_ITEMS = [
   {
@@ -51,7 +51,7 @@ const NAV_ITEMS = [
 
 export default function MobileNav() {
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#141720] border-t border-[#2a2d3e] z-50">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50">
       <div className="flex">
         {NAV_ITEMS.map(item => (
           <NavLink
@@ -59,7 +59,7 @@ export default function MobileNav() {
             to={item.to}
             className={({ isActive }) =>
               `flex-1 flex flex-col items-center gap-0.5 py-2 text-[10px] font-medium transition-colors ${
-                isActive ? 'text-blue-400' : 'text-slate-500'
+                isActive ? 'text-blue-400' : 'text-slate-400'
               }`
             }
           >

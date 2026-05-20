@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+﻿import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { vehiclesService } from '../services/vehiclesService'
 import { contactsService } from '../services/contactsService'
@@ -23,8 +23,8 @@ function formatPrice(n) {
 
 function Section({ title, children }) {
   return (
-    <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] p-4">
-      <h3 className="text-slate-300 font-semibold text-sm mb-4">{title}</h3>
+    <div className="bg-white rounded-xl border border-slate-200 p-4">
+      <h3 className="text-slate-700 font-semibold text-sm mb-4">{title}</h3>
       {children}
     </div>
   )
@@ -100,7 +100,7 @@ export default function VehicleDetail() {
     <div className="p-4 lg:p-6 max-w-3xl mx-auto space-y-4">
       {/* Back + actions */}
       <div className="flex items-center justify-between">
-        <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm">
+        <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-slate-400 hover:text-slate-900 transition-colors text-sm">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
@@ -109,7 +109,7 @@ export default function VehicleDetail() {
         <div className="flex gap-2">
           <button
             onClick={() => navigate(`/vehicles/${id}/edit`)}
-            className="px-3 py-1.5 text-sm border border-[#2a2d3e] text-slate-300 hover:text-white rounded-lg transition-colors"
+            className="px-3 py-1.5 text-sm border border-slate-200 text-slate-700 hover:text-slate-900 rounded-lg transition-colors"
           >
             Modifier
           </button>
@@ -123,14 +123,14 @@ export default function VehicleDetail() {
       </div>
 
       {/* Header card */}
-      <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] p-5" style={{ borderLeft: `4px solid ${color}` }}>
+      <div className="bg-white rounded-xl border border-slate-200 p-5" style={{ borderLeft: `4px solid ${color}` }}>
         <div className="flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <VehicleTypeBadge type={vehicle.type} />
               <StatusBadge status={vehicle.status} />
             </div>
-            <h1 className="text-2xl font-bold text-white mt-2">
+            <h1 className="text-2xl font-bold text-slate-900 mt-2">
               {vehicle.brand} {vehicle.model}
             </h1>
             <p className="text-slate-400 text-sm mt-1">
@@ -139,7 +139,7 @@ export default function VehicleDetail() {
             </p>
           </div>
           <div className="text-right shrink-0">
-            <p className="text-white text-xl font-bold">{formatPrice(vehicle.listing_price)}</p>
+            <p className="text-slate-900 text-xl font-bold">{formatPrice(vehicle.listing_price)}</p>
             <p className="text-slate-400 text-sm">Prix achat : {formatPrice(vehicle.seller_price)}</p>
             {margin !== null && (
               <p className={`text-lg font-bold mt-1 ${margin >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
@@ -150,12 +150,12 @@ export default function VehicleDetail() {
         </div>
 
         {/* Assigned */}
-        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-[#2a2d3e]">
+        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-slate-200">
           <span className="text-slate-400 text-xs">Assigné à :</span>
           {vehicle.assigned_to === 'both' ? (
             <div className="flex items-center gap-1">
               {profiles.map(p => <UserAvatar key={p.id} name={p.name} color={p.color} size="sm" />)}
-              <span className="text-slate-300 text-xs ml-1">Les deux</span>
+              <span className="text-slate-700 text-xs ml-1">Les deux</span>
             </div>
           ) : (
             (() => {
@@ -163,7 +163,7 @@ export default function VehicleDetail() {
               return p ? (
                 <div className="flex items-center gap-1.5">
                   <UserAvatar name={p.name} color={p.color} size="sm" />
-                  <span className="text-slate-300 text-xs">{p.name}</span>
+                  <span className="text-slate-700 text-xs">{p.name}</span>
                 </div>
               ) : null
             })()
@@ -182,7 +182,7 @@ export default function VehicleDetail() {
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
                 vehicle.status === s.value
                   ? 'bg-blue-600 border-blue-500 text-white'
-                  : 'border-[#2a2d3e] text-slate-400 hover:border-slate-500 hover:text-white'
+                  : 'border-slate-200 text-slate-400 hover:border-slate-400 hover:text-white'
               }`}
             >
               {s.label}
@@ -194,7 +194,7 @@ export default function VehicleDetail() {
       {/* Notes */}
       {vehicle.notes && (
         <Section title="Notes">
-          <p className="text-slate-300 text-sm whitespace-pre-wrap">{vehicle.notes}</p>
+          <p className="text-slate-700 text-sm whitespace-pre-wrap">{vehicle.notes}</p>
         </Section>
       )}
 
@@ -209,7 +209,7 @@ export default function VehicleDetail() {
         <button
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
-          className="flex items-center gap-2 text-sm text-slate-400 hover:text-white border border-dashed border-[#2a2d3e] hover:border-slate-500 px-4 py-2 rounded-lg transition-colors"
+          className="flex items-center gap-2 text-sm text-slate-400 hover:text-slate-900 border border-dashed border-slate-200 hover:border-slate-400 px-4 py-2 rounded-lg transition-colors"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -221,17 +221,17 @@ export default function VehicleDetail() {
       {/* Contacts */}
       <Section title={`Contacts liés (${contacts.length})`}>
         {contacts.length === 0 ? (
-          <p className="text-slate-500 text-sm">Aucun contact associé</p>
+          <p className="text-slate-400 text-sm">Aucun contact associé</p>
         ) : (
           <div className="space-y-2">
             {contacts.map(c => (
               <div
                 key={c.id}
-                className="flex items-center justify-between p-3 rounded-lg bg-[#0f1117] cursor-pointer hover:bg-[#141720]"
+                className="flex items-center justify-between p-3 rounded-lg bg-slate-50 cursor-pointer hover:bg-white"
                 onClick={() => navigate(`/contacts/${c.id}`)}
               >
                 <div>
-                  <p className="text-white text-sm font-medium">{c.name}</p>
+                  <p className="text-slate-900 text-sm font-medium">{c.name}</p>
                   <p className="text-slate-400 text-xs capitalize">{c.type} · {c.status}</p>
                 </div>
                 {c.phone && (
@@ -254,7 +254,7 @@ export default function VehicleDetail() {
       {/* Activity log */}
       <Section title="Historique">
         {activityLog.length === 0 ? (
-          <p className="text-slate-500 text-sm">Aucune activité</p>
+          <p className="text-slate-400 text-sm">Aucune activité</p>
         ) : (
           <div className="space-y-3">
             {activityLog.map(a => (
@@ -263,14 +263,14 @@ export default function VehicleDetail() {
                   <UserAvatar name={a.user_profiles.name} color={a.user_profiles.color} size="sm" />
                 )}
                 <div>
-                  <p className="text-slate-300 text-xs">
+                  <p className="text-slate-700 text-xs">
                     {a.action === 'status_changed' && (
-                      <>{a.user_profiles?.name} · Statut changé de <span className="text-slate-400">{a.metadata?.from}</span> → <span className="text-white">{a.metadata?.to}</span></>
+                      <>{a.user_profiles?.name} · Statut changé de <span className="text-slate-400">{a.metadata?.from}</span> → <span className="text-slate-900">{a.metadata?.to}</span></>
                     )}
                     {a.action === 'created' && <>{a.user_profiles?.name} · Véhicule créé</>}
                     {!['status_changed', 'created'].includes(a.action) && <>{a.user_profiles?.name} · {a.action}</>}
                   </p>
-                  <p className="text-slate-500 text-xs mt-0.5">
+                  <p className="text-slate-400 text-xs mt-0.5">
                     {new Date(a.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>

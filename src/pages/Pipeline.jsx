@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+﻿import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { vehiclesService } from '../services/vehiclesService'
 import { useProfiles } from '../hooks/useProfiles'
@@ -30,7 +30,7 @@ function VehicleCard({ vehicle, getColor, getProfile, onClick }) {
     <ColoredCard color={color} onClick={onClick} className="p-3 space-y-2">
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
-          <p className="text-white font-semibold text-sm leading-tight truncate">
+          <p className="text-slate-900 font-semibold text-sm leading-tight truncate">
             {vehicle.brand} {vehicle.model}
           </p>
           <p className="text-slate-400 text-xs mt-0.5">
@@ -42,7 +42,7 @@ function VehicleCard({ vehicle, getColor, getProfile, onClick }) {
 
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-white text-sm font-medium">{formatPrice(vehicle.listing_price)}</p>
+          <p className="text-slate-900 text-sm font-medium">{formatPrice(vehicle.listing_price)}</p>
           {margin !== null && (
             <p className={`text-xs font-medium ${margin >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
               {margin >= 0 ? '+' : ''}{formatPrice(margin)}
@@ -51,7 +51,7 @@ function VehicleCard({ vehicle, getColor, getProfile, onClick }) {
         </div>
         <div className="flex items-center gap-1">
           {vehicle.assigned_to === 'both' ? (
-            <div className="w-7 h-7 rounded-full bg-purple-600 flex items-center justify-center text-xs text-white font-bold">2</div>
+            <div className="w-7 h-7 rounded-full bg-purple-600 flex items-center justify-center text-xs text-slate-900 font-bold">2</div>
           ) : (
             (() => {
               const p = getProfile(vehicle.assigned_to)
@@ -62,7 +62,7 @@ function VehicleCard({ vehicle, getColor, getProfile, onClick }) {
       </div>
 
       {vehicle.source && (
-        <p className="text-slate-500 text-xs truncate">{vehicle.source}</p>
+        <p className="text-slate-400 text-xs truncate">{vehicle.source}</p>
       )}
     </ColoredCard>
   )
@@ -108,7 +108,7 @@ export default function Pipeline() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-white">Pipeline</h1>
+          <h1 className="text-xl font-bold text-slate-900">Pipeline</h1>
           <p className="text-slate-400 text-sm">{active.length} véhicule(s) actif(s)</p>
         </div>
         <button
@@ -148,8 +148,8 @@ export default function Pipeline() {
           return (
             <div key={col.key} className="min-w-[220px] w-[220px] flex-shrink-0">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-slate-300 font-semibold text-sm">{col.label}</h3>
-                <span className="bg-[#2a2d3e] text-slate-400 text-xs rounded-full px-2 py-0.5">{colVehicles.length}</span>
+                <h3 className="text-slate-700 font-semibold text-sm">{col.label}</h3>
+                <span className="bg-slate-100 text-slate-400 text-xs rounded-full px-2 py-0.5">{colVehicles.length}</span>
               </div>
               <div className="space-y-2">
                 {colVehicles.map(v => (
@@ -162,7 +162,7 @@ export default function Pipeline() {
                   />
                 ))}
                 {colVehicles.length === 0 && (
-                  <div className="border-2 border-dashed border-[#2a2d3e] rounded-lg p-4 text-center text-slate-600 text-xs">
+                  <div className="border-2 border-dashed border-slate-200 rounded-lg p-4 text-center text-slate-400 text-xs">
                     Aucun
                   </div>
                 )}

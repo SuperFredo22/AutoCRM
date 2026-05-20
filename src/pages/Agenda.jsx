@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+﻿import { useEffect, useState, useCallback } from 'react'
 import { agendaService } from '../services/agendaService'
 import { vehiclesService } from '../services/vehiclesService'
 import { contactsService } from '../services/contactsService'
@@ -133,21 +133,21 @@ export default function Agenda() {
     return p?.color ?? '#6B7280'
   }
 
-  const inputClass = "w-full bg-[#0f1117] border border-[#2a2d3e] rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm"
+  const inputClass = "w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-900 placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm"
 
   return (
     <div className="p-4 lg:p-6 space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-white">Agenda</h1>
+        <h1 className="text-xl font-bold text-slate-900">Agenda</h1>
         <div className="flex items-center gap-2">
-          <button onClick={prevWeek} className="p-2 text-slate-400 hover:text-white hover:bg-[#1e2130] rounded-lg">
+          <button onClick={prevWeek} className="p-2 text-slate-400 hover:text-slate-900 hover:bg-white rounded-lg">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
           </button>
-          <span className="text-slate-300 text-sm font-medium">
+          <span className="text-slate-700 text-sm font-medium">
             {new Date(weekStart).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })} — {new Date(weekEnd).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}
           </span>
-          <button onClick={nextWeek} className="p-2 text-slate-400 hover:text-white hover:bg-[#1e2130] rounded-lg">
+          <button onClick={nextWeek} className="p-2 text-slate-400 hover:text-slate-900 hover:bg-white rounded-lg">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           </button>
         </div>
@@ -186,7 +186,7 @@ export default function Agenda() {
               key={d}
               onClick={() => setMobileDay(d)}
               className={`flex-shrink-0 flex flex-col items-center p-2 rounded-lg min-w-[44px] border transition-colors ${
-                mobileDay === d ? 'bg-blue-600 border-blue-500' : 'border-[#2a2d3e] hover:border-slate-500'
+                mobileDay === d ? 'bg-blue-600 border-blue-500' : 'border-slate-200 hover:border-slate-400'
               }`}
             >
               <span className="text-xs text-slate-400">{DAY_NAMES[date.getDay()]}</span>
@@ -227,7 +227,7 @@ export default function Agenda() {
               )}
               <button
                 onClick={() => openForm(d)}
-                className="mt-1 text-xs text-slate-500 hover:text-blue-400 transition-colors"
+                className="mt-1 text-xs text-slate-400 hover:text-blue-400 transition-colors"
               >
                 + Ajouter
               </button>
@@ -238,7 +238,7 @@ export default function Agenda() {
         {/* Time slots */}
         {HOURS.map(hour => (
           <>
-            <div key={`h-${hour}`} className="text-slate-600 text-xs text-right pr-2 leading-none" style={{ paddingTop: '2px' }}>
+            <div key={`h-${hour}`} className="text-slate-400 text-xs text-right pr-2 leading-none" style={{ paddingTop: '2px' }}>
               {hour.endsWith(':00') ? hour : ''}
             </div>
             {days.map(d => {
@@ -254,7 +254,7 @@ export default function Agenda() {
                   {daySlots.map(s => (
                     <div
                       key={s.id}
-                      className="absolute inset-x-0 mx-0.5 rounded text-xs text-white px-1 truncate opacity-80"
+                      className="absolute inset-x-0 mx-0.5 rounded text-xs text-slate-900 px-1 truncate opacity-80"
                       style={{ backgroundColor: getEventColor(s, 'slot') + '33', borderLeft: `2px solid ${getEventColor(s, 'slot')}` }}
                     >
                       {s.user_profiles?.name} · {s.type === 'dispo' ? 'Dispo' : 'Indispo'}
@@ -263,7 +263,7 @@ export default function Agenda() {
                   {dayAppts.map(a => (
                     <div
                       key={a.id}
-                      className="absolute inset-x-0 mx-0.5 rounded text-xs text-white px-1 truncate"
+                      className="absolute inset-x-0 mx-0.5 rounded text-xs text-slate-900 px-1 truncate"
                       style={{ backgroundColor: '#8B5CF633', borderLeft: '2px solid #8B5CF6' }}
                     >
                       📅 {a.title}
@@ -279,16 +279,16 @@ export default function Agenda() {
       {/* Add form modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-4">
-          <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] w-full max-w-md p-5 space-y-3 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-xl border border-slate-200 w-full max-w-md p-5 space-y-3 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
-              <h2 className="text-white font-semibold">Nouveau créneau</h2>
-              <button onClick={() => setShowForm(false)} className="text-slate-400 hover:text-white">✕</button>
+              <h2 className="text-slate-900 font-semibold">Nouveau créneau</h2>
+              <button onClick={() => setShowForm(false)} className="text-slate-400 hover:text-slate-900">✕</button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-3">
               <div className="flex gap-2">
                 {[{ v: 'slot', l: 'Disponibilité' }, { v: 'rdv', l: 'Rendez-vous' }].map(t => (
                   <button key={t.v} type="button" onClick={() => setForm(f => ({ ...f, slotType: t.v }))}
-                    className={`flex-1 py-2 rounded-lg text-sm font-semibold border transition-colors ${form.slotType === t.v ? 'bg-blue-600/20 border-blue-500 text-blue-400' : 'border-[#2a2d3e] text-slate-400'}`}>
+                    className={`flex-1 py-2 rounded-lg text-sm font-semibold border transition-colors ${form.slotType === t.v ? 'bg-blue-600/20 border-blue-500 text-blue-400' : 'border-slate-200 text-slate-400'}`}>
                     {t.l}
                   </button>
                 ))}
@@ -298,7 +298,7 @@ export default function Agenda() {
                 <div className="flex gap-2">
                   {[{ v: 'dispo', l: 'Disponible' }, { v: 'indispo', l: 'Indisponible' }].map(t => (
                     <button key={t.v} type="button" onClick={() => setForm(f => ({ ...f, type: t.v }))}
-                      className={`flex-1 py-2 rounded-lg text-xs font-semibold border transition-colors ${form.type === t.v ? (t.v === 'dispo' ? 'bg-emerald-600/20 border-emerald-500 text-emerald-400' : 'bg-red-600/20 border-red-500 text-red-400') : 'border-[#2a2d3e] text-slate-400'}`}>
+                      className={`flex-1 py-2 rounded-lg text-xs font-semibold border transition-colors ${form.type === t.v ? (t.v === 'dispo' ? 'bg-emerald-600/20 border-emerald-500 text-emerald-400' : 'bg-red-600/20 border-red-500 text-red-400') : 'border-slate-200 text-slate-400'}`}>
                       {t.l}
                     </button>
                   ))}
@@ -345,8 +345,8 @@ export default function Agenda() {
                     {contacts.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                   </select>
                   <label className="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" checked={form.need_both} onChange={e => setForm(f => ({ ...f, need_both: e.target.checked }))} className="rounded border-[#2a2d3e]" />
-                    <span className="text-sm text-slate-300">Présence des deux requise</span>
+                    <input type="checkbox" checked={form.need_both} onChange={e => setForm(f => ({ ...f, need_both: e.target.checked }))} className="rounded border-slate-200" />
+                    <span className="text-sm text-slate-700">Présence des deux requise</span>
                   </label>
                 </>
               )}
@@ -354,7 +354,7 @@ export default function Agenda() {
               <textarea className={`${inputClass} resize-none`} rows={2} placeholder="Notes (optionnel)" value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} />
 
               <div className="flex gap-2 pt-1">
-                <button type="button" onClick={() => setShowForm(false)} className="flex-1 border border-[#2a2d3e] text-slate-300 py-2 rounded-lg text-sm">Annuler</button>
+                <button type="button" onClick={() => setShowForm(false)} className="flex-1 border border-slate-200 text-slate-700 py-2 rounded-lg text-sm">Annuler</button>
                 <button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm font-semibold">Créer</button>
               </div>
             </form>
@@ -368,16 +368,16 @@ export default function Agenda() {
 function DayColumn({ day, slots, appts, getEventColor, onAdd, hasCommon, profiles }) {
   const date = new Date(day)
   return (
-    <div className={`rounded-xl border p-4 space-y-3 ${hasCommon ? 'border-emerald-800 bg-emerald-900/10' : 'border-[#2a2d3e] bg-[#1e2130]'}`}>
+    <div className={`rounded-xl border p-4 space-y-3 ${hasCommon ? 'border-emerald-800 bg-emerald-900/10' : 'border-slate-200 bg-white'}`}>
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-white font-semibold">{DAY_NAMES[date.getDay()]} {date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</p>
+          <p className="text-slate-900 font-semibold">{DAY_NAMES[date.getDay()]} {date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</p>
           {hasCommon && <p className="text-emerald-400 text-xs">Tous disponibles ✓</p>}
         </div>
         <button onClick={onAdd} className="text-sm text-blue-400 hover:text-blue-300">+ Ajouter</button>
       </div>
       {slots.length === 0 && appts.length === 0 ? (
-        <p className="text-slate-500 text-sm">Aucun créneau</p>
+        <p className="text-slate-400 text-sm">Aucun créneau</p>
       ) : (
         <div className="space-y-2">
           {[...slots, ...appts.map(a => ({ ...a, _isAppt: true }))].map(item => (
@@ -386,7 +386,7 @@ function DayColumn({ day, slots, appts, getEventColor, onAdd, hasCommon, profile
               className="p-2 rounded-lg text-sm"
               style={{ backgroundColor: getEventColor(item, item._isAppt ? 'appointment' : 'slot') + '22', borderLeft: `3px solid ${getEventColor(item, item._isAppt ? 'appointment' : 'slot')}` }}
             >
-              <p className="text-white font-medium">{item._isAppt ? item.title : (item.type === 'dispo' ? 'Disponible' : 'Indisponible')}</p>
+              <p className="text-slate-900 font-medium">{item._isAppt ? item.title : (item.type === 'dispo' ? 'Disponible' : 'Indisponible')}</p>
               <p className="text-slate-400 text-xs">{formatTime(item.start_time)} – {formatTime(item.end_time)}</p>
               {item._isAppt && item.vehicles && <p className="text-slate-400 text-xs">🚗 {item.vehicles.brand} {item.vehicles.model}</p>}
               {item.user_profiles && !item._isAppt && <p className="text-slate-400 text-xs">{item.user_profiles.name}</p>}

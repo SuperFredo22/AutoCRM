@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+﻿import { useEffect, useState, useCallback } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { contactsService } from '../services/contactsService'
 import { vehiclesService } from '../services/vehiclesService'
@@ -85,12 +85,12 @@ export default function Contacts() {
     }
   }
 
-  const inputClass = "w-full bg-[#0f1117] border border-[#2a2d3e] rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm"
+  const inputClass = "w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-900 placeholder-slate-500 focus:outline-none focus:border-blue-500 text-sm"
 
   return (
     <div className="p-4 lg:p-6 space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-white">Contacts</h1>
+        <h1 className="text-xl font-bold text-slate-900">Contacts</h1>
         <button
           onClick={() => setShowForm(true)}
           className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg"
@@ -105,16 +105,16 @@ export default function Contacts() {
       {/* Quick form modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-4">
-          <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] w-full max-w-md p-5 space-y-3 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-xl border border-slate-200 w-full max-w-md p-5 space-y-3 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-2">
-              <h2 className="text-white font-semibold">Nouveau contact</h2>
-              <button onClick={() => setShowForm(false)} className="text-slate-400 hover:text-white">✕</button>
+              <h2 className="text-slate-900 font-semibold">Nouveau contact</h2>
+              <button onClick={() => setShowForm(false)} className="text-slate-400 hover:text-slate-900">✕</button>
             </div>
             <form onSubmit={handleCreate} className="space-y-3">
               <div className="flex gap-2">
                 {['acheteur', 'vendeur'].map(t => (
                   <button key={t} type="button" onClick={() => setForm(f => ({ ...f, type: t }))}
-                    className={`flex-1 py-2 rounded-lg text-sm font-semibold border transition-colors capitalize ${form.type === t ? 'bg-blue-600/20 border-blue-500 text-blue-400' : 'border-[#2a2d3e] text-slate-400'}`}>
+                    className={`flex-1 py-2 rounded-lg text-sm font-semibold border transition-colors capitalize ${form.type === t ? 'bg-blue-600/20 border-blue-500 text-blue-400' : 'border-slate-200 text-slate-400'}`}>
                     {t}
                   </button>
                 ))}
@@ -135,7 +135,7 @@ export default function Contacts() {
               <input className={inputClass} type="date" value={form.next_date} onChange={e => setForm(f => ({ ...f, next_date: e.target.value }))} />
               <textarea className={`${inputClass} resize-none`} rows={3} placeholder="Notes" value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} />
               <div className="flex gap-2 pt-1">
-                <button type="button" onClick={() => setShowForm(false)} className="flex-1 border border-[#2a2d3e] text-slate-300 py-2 rounded-lg text-sm">Annuler</button>
+                <button type="button" onClick={() => setShowForm(false)} className="flex-1 border border-slate-200 text-slate-700 py-2 rounded-lg text-sm">Annuler</button>
                 <button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm font-semibold">Créer</button>
               </div>
             </form>
@@ -150,14 +150,14 @@ export default function Contacts() {
           placeholder="Rechercher..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="bg-[#1e2130] border border-[#2a2d3e] rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 flex-1 min-w-[160px]"
+          className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 placeholder-slate-500 focus:outline-none focus:border-blue-500 flex-1 min-w-[160px]"
         />
-        <select value={filterType} onChange={e => setFilterType(e.target.value)} className="bg-[#1e2130] border border-[#2a2d3e] rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none">
+        <select value={filterType} onChange={e => setFilterType(e.target.value)} className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none">
           <option value="all">Tous</option>
           <option value="acheteur">Acheteurs</option>
           <option value="vendeur">Vendeurs</option>
         </select>
-        <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="bg-[#1e2130] border border-[#2a2d3e] rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none">
+        <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none">
           <option value="all">Tous statuts</option>
           <option value="nouveau">Nouveau</option>
           <option value="contacte">Contacté</option>
@@ -173,7 +173,7 @@ export default function Contacts() {
         </div>
       ) : (
         <div className="space-y-2">
-          {sorted.length === 0 && <p className="text-slate-500 text-center py-8 text-sm">Aucun contact trouvé</p>}
+          {sorted.length === 0 && <p className="text-slate-400 text-center py-8 text-sm">Aucun contact trouvé</p>}
           {sorted.map(c => {
             const color = getColor(c.assigned_to)
             const overdue = isOverdue(c.next_date)
@@ -187,7 +187,7 @@ export default function Contacts() {
                       </span>
                       <StatusBadge status={c.status} />
                     </div>
-                    <p className="text-white font-semibold text-sm">{c.name}</p>
+                    <p className="text-slate-900 font-semibold text-sm">{c.name}</p>
                     {c.next_action && (
                       <p className={`text-xs mt-0.5 ${overdue ? 'text-red-400' : 'text-slate-400'}`}>
                         {overdue && '⚠ '}{c.next_action}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import { vehiclesService } from '../services/vehiclesService'
 import { contactsService } from '../services/contactsService'
 import { profilesService } from '../services/profilesService'
@@ -14,10 +14,10 @@ function formatPrice(n) {
 
 function KPI({ label, value, sub, color }) {
   return (
-    <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] p-4">
+    <div className="bg-white rounded-xl border border-slate-200 p-4">
       <p className="text-slate-400 text-xs mb-1">{label}</p>
-      <p className="text-white text-2xl font-bold" style={{ color: color }}>{value}</p>
-      {sub && <p className="text-slate-500 text-xs mt-1">{sub}</p>}
+      <p className="text-slate-900 text-2xl font-bold" style={{ color: color }}>{value}</p>
+      {sub && <p className="text-slate-400 text-xs mt-1">{sub}</p>}
     </div>
   )
 }
@@ -89,7 +89,7 @@ export default function Stats() {
 
   return (
     <div className="p-4 lg:p-6 space-y-6">
-      <h1 className="text-xl font-bold text-white">Statistiques</h1>
+      <h1 className="text-xl font-bold text-slate-900">Statistiques</h1>
 
       {/* KPIs */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
@@ -101,15 +101,15 @@ export default function Stats() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Monthly margin */}
-        <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] p-4">
-          <h3 className="text-slate-300 font-semibold text-sm mb-4">Marge par mois (6 derniers mois)</h3>
+        <div className="bg-white rounded-xl border border-slate-200 p-4">
+          <h3 className="text-slate-700 font-semibold text-sm mb-4">Marge par mois (6 derniers mois)</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={monthlyData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#2a2d3e" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
               <XAxis dataKey="name" tick={{ fill: '#94a3b8', fontSize: 11 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `${v}€`} />
               <Tooltip
-                contentStyle={{ background: '#1e2130', border: '1px solid #2a2d3e', borderRadius: 8, color: '#fff' }}
+                contentStyle={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 8, color: '#1e293b' }}
                 formatter={v => [formatPrice(v), 'Marge']}
               />
               <Bar dataKey="marge" fill="#3B82F6" radius={[4, 4, 0, 0]} />
@@ -118,50 +118,50 @@ export default function Stats() {
         </div>
 
         {/* Achat vs mandat */}
-        <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] p-4">
-          <h3 className="text-slate-300 font-semibold text-sm mb-4">Répartition Achat / Mandat</h3>
+        <div className="bg-white rounded-xl border border-slate-200 p-4">
+          <h3 className="text-slate-700 font-semibold text-sm mb-4">Répartition Achat / Mandat</h3>
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <Pie data={typeData} cx="50%" cy="50%" outerRadius={70} dataKey="value" label={({ name, value }) => `${name}: ${value}`}>
                 <Cell fill="#3B82F6" />
                 <Cell fill="#F59E0B" />
               </Pie>
-              <Tooltip contentStyle={{ background: '#1e2130', border: '1px solid #2a2d3e', borderRadius: 8, color: '#fff' }} />
+              <Tooltip contentStyle={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: 8, color: '#1e293b' }} />
             </PieChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       {/* Pipeline status */}
-      <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] p-4">
-        <h3 className="text-slate-300 font-semibold text-sm mb-4">Véhicules par statut (pipeline actif)</h3>
+      <div className="bg-white rounded-xl border border-slate-200 p-4">
+        <h3 className="text-slate-700 font-semibold text-sm mb-4">Véhicules par statut (pipeline actif)</h3>
         <div className="space-y-2">
           {statusData.map(s => (
             <div key={s.name} className="flex items-center gap-3">
               <span className="text-slate-400 text-xs w-24 shrink-0">{s.name}</span>
-              <div className="flex-1 bg-[#0f1117] rounded-full h-2 overflow-hidden">
+              <div className="flex-1 bg-slate-50 rounded-full h-2 overflow-hidden">
                 <div
                   className="h-full bg-blue-600 rounded-full transition-all"
                   style={{ width: active.length > 0 ? `${(s.count / active.length) * 100}%` : '0%' }}
                 />
               </div>
-              <span className="text-slate-300 text-xs w-6 text-right">{s.count}</span>
+              <span className="text-slate-700 text-xs w-6 text-right">{s.count}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* Per user */}
-      <div className="bg-[#1e2130] rounded-xl border border-[#2a2d3e] p-4">
-        <h3 className="text-slate-300 font-semibold text-sm mb-4">Par associé</h3>
+      <div className="bg-white rounded-xl border border-slate-200 p-4">
+        <h3 className="text-slate-700 font-semibold text-sm mb-4">Par associé</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {userBreakdown.map(u => (
-            <div key={u.id} className="p-4 bg-[#0f1117] rounded-xl" style={{ borderLeft: `3px solid ${u.color}` }}>
-              <p className="text-white font-semibold mb-3">{u.name}</p>
+            <div key={u.id} className="p-4 bg-slate-50 rounded-xl" style={{ borderLeft: `3px solid ${u.color}` }}>
+              <p className="text-slate-900 font-semibold mb-3">{u.name}</p>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-slate-400">Véhicules gérés</span>
-                  <span className="text-white font-medium">{u.vehicleCount}</span>
+                  <span className="text-slate-900 font-medium">{u.vehicleCount}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-slate-400">Vendus</span>
