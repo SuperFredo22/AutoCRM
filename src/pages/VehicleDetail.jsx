@@ -52,7 +52,7 @@ export default function VehicleDetail() {
       setContacts(c ?? [])
       setActivityLog(a ?? [])
       setLoading(false)
-    })
+    }).catch(() => setLoading(false))
   }, [id])
 
   async function handleStatusChange(newStatus) {

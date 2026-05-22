@@ -19,7 +19,9 @@ export const vehiclesService = {
   },
 
   async create(vehicle) {
-    const { data: { user } } = await supabase.auth.getUser()
+    const { data: authData } = await supabase.auth.getUser()
+    const user = authData?.user
+    if (!user) return { data: null, error: new Error('Non authentifié') }
     const { data, error } = await supabase
       .from('vehicles')
       .insert({ ...vehicle, created_by: user.id })
@@ -38,7 +40,6 @@ export const vehiclesService = {
   },
 
   async update(id, updates) {
-    const { data: { user } } = await supabase.auth.getUser()
     const { data, error } = await supabase
       .from('vehicles')
       .update({ ...updates, updated_at: new Date().toISOString() })
@@ -49,14 +50,15 @@ export const vehiclesService = {
   },
 
   async updateStatus(id, newStatus, oldStatus) {
-    const { data: { user } } = await supabase.auth.getUser()
+    const { data: authData } = await supabase.auth.getUser()
+    const user = authData?.user
     const { data, error } = await supabase
       .from('vehicles')
       .update({ status: newStatus, updated_at: new Date().toISOString(), ...(newStatus === 'vendu' ? { sold_at: new Date().toISOString() } : {}) })
       .eq('id', id)
       .select()
       .single()
-    if (data) {
+    if (data && user) {
       await supabase.from('activity_log').insert({
         entity_type: 'vehicle',
         entity_id: id,

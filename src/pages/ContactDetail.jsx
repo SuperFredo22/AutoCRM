@@ -45,7 +45,7 @@ export default function ContactDetail() {
       setVehicles(v ?? [])
       setProfiles(p ?? [])
       setLoading(false)
-    })
+    }).catch(() => setLoading(false))
   }, [id])
 
   async function handleSave() {

@@ -27,7 +27,9 @@ export const contactsService = {
   },
 
   async create(contact) {
-    const { data: { user } } = await supabase.auth.getUser()
+    const { data: authData } = await supabase.auth.getUser()
+    const user = authData?.user
+    if (!user) return { data: null, error: new Error('Non authentifié') }
     const { data, error } = await supabase
       .from('contacts')
       .insert({ ...contact, created_by: user.id })

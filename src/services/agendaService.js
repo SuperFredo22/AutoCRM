@@ -24,7 +24,9 @@ export const agendaService = {
   },
 
   async createSlot(slot) {
-    const { data: { user } } = await supabase.auth.getUser()
+    const { data: authData } = await supabase.auth.getUser()
+    const user = authData?.user
+    if (!user) return { data: null, error: new Error('Non authentifié') }
     const { data, error } = await supabase
       .from('availability_slots')
       .insert({ ...slot, user_id: user.id })
@@ -34,7 +36,9 @@ export const agendaService = {
   },
 
   async createAppointment(appointment) {
-    const { data: { user } } = await supabase.auth.getUser()
+    const { data: authData } = await supabase.auth.getUser()
+    const user = authData?.user
+    if (!user) return { data: null, error: new Error('Non authentifié') }
     const { data, error } = await supabase
       .from('appointments')
       .insert({ ...appointment, created_by: user.id })

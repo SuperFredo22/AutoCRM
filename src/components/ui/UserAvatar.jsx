@@ -4,7 +4,7 @@
 
   return (
     <div
-      className={`${sizes[size]} rounded-full flex items-center justify-center font-semibold text-slate-900 flex-shrink-0`}
+      className={`${sizes[size]} rounded-full flex items-center justify-center font-semibold text-white flex-shrink-0`}
       style={{ backgroundColor: color }}
       title={name}
     >
