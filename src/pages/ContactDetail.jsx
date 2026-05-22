@@ -4,6 +4,7 @@ import { contactsService } from '../services/contactsService'
 import { vehiclesService } from '../services/vehiclesService'
 import { profilesService } from '../services/profilesService'
 import { useProfiles } from '../hooks/useProfiles'
+import { useToast } from '../contexts/ToastContext'
 import StatusBadge from '../components/ui/StatusBadge'
 import UserAvatar from '../components/ui/UserAvatar'
 
@@ -23,6 +24,7 @@ export default function ContactDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { getColor, getProfile } = useProfiles()
+  const toast = useToast()
   const [contact, setContact] = useState(null)
   const [activityLog, setActivityLog] = useState([])
   const [vehicles, setVehicles] = useState([])
@@ -49,8 +51,9 @@ export default function ContactDetail() {
   }, [id])
 
   async function handleSave() {
-    const { data } = await contactsService.update(id, form)
-    if (data) { setContact(data); setEditing(false) }
+    const { data, error } = await contactsService.update(id, form)
+    if (error) { toast('Erreur lors de la sauvegarde', 'error'); return }
+    if (data) { setContact(data); setEditing(false); toast('Contact mis à jour') }
   }
 
   async function handleDelete() {

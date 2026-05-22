@@ -40,12 +40,27 @@ export const vehiclesService = {
   },
 
   async update(id, updates) {
+    const { data: authData } = await supabase.auth.getUser()
+    const user = authData?.user
     const { data, error } = await supabase
       .from('vehicles')
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
       .single()
+    if (data && user) {
+      const tracked = ['brand', 'model', 'year', 'mileage', 'seller_price', 'listing_price', 'type', 'source', 'assigned_to', 'notes']
+      const changed = Object.keys(updates).filter(k => tracked.includes(k))
+      if (changed.length > 0) {
+        await supabase.from('activity_log').insert({
+          entity_type: 'vehicle',
+          entity_id: id,
+          user_id: user.id,
+          action: 'updated',
+          metadata: { fields: changed },
+        })
+      }
+    }
     return { data, error }
   },
 
@@ -83,6 +98,15 @@ export const vehiclesService = {
       .eq('entity_id', vehicleId)
       .order('created_at', { ascending: false })
     return { data, error }
+  },
+
+  async deletePhoto(url) {
+    const marker = '/vehicle-photos/'
+    const idx = url.indexOf(marker)
+    if (idx !== -1) {
+      const path = url.slice(idx + marker.length)
+      await supabase.storage.from('vehicle-photos').remove([path])
+    }
   },
 
   async uploadPhoto(vehicleId, file) {

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { vehiclesService } from '../services/vehiclesService'
 import { contactsService } from '../services/contactsService'
 import { useProfiles } from '../hooks/useProfiles'
+import { useToast } from '../contexts/ToastContext'
 import VehicleTypeBadge from '../components/ui/VehicleTypeBadge'
 import StatusBadge from '../components/ui/StatusBadge'
 import UserAvatar from '../components/ui/UserAvatar'
@@ -34,6 +35,7 @@ export default function VehicleDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { getColor, getProfile, profiles } = useProfiles()
+  const toast = useToast()
   const [vehicle, setVehicle] = useState(null)
   const [contacts, setContacts] = useState([])
   const [activityLog, setActivityLog] = useState([])
@@ -57,8 +59,9 @@ export default function VehicleDetail() {
 
   async function handleStatusChange(newStatus) {
     setStatusChanging(true)
-    const { data } = await vehiclesService.updateStatus(id, newStatus, vehicle.status)
+    const { data, error } = await vehiclesService.updateStatus(id, newStatus, vehicle.status)
     if (data) setVehicle(data)
+    else if (error) toast('Erreur lors du changement de statut', 'error')
     setStatusChanging(false)
   }
 
@@ -66,13 +69,23 @@ export default function VehicleDetail() {
     const file = e.target.files[0]
     if (!file) return
     setUploading(true)
-    const { url } = await vehiclesService.uploadPhoto(id, file)
+    const { url, error } = await vehiclesService.uploadPhoto(id, file)
     if (url) {
       const newPhotos = [...(vehicle.photos ?? []), url]
       const { data } = await vehiclesService.update(id, { photos: newPhotos })
-      if (data) setVehicle(data)
+      if (data) { setVehicle(data); toast('Photo ajoutée') }
+    } else if (error) {
+      toast('Erreur lors du téléchargement', 'error')
     }
     setUploading(false)
+    e.target.value = ''
+  }
+
+  async function handlePhotoDelete(url) {
+    await vehiclesService.deletePhoto(url)
+    const newPhotos = (vehicle.photos ?? []).filter(p => p !== url)
+    const { data } = await vehiclesService.update(id, { photos: newPhotos })
+    if (data) { setVehicle(data); toast('Photo supprimée') }
   }
 
   async function handleDelete() {
@@ -202,7 +215,15 @@ export default function VehicleDetail() {
       <Section title="Photos">
         <div className="grid grid-cols-3 gap-2 mb-3">
           {(vehicle.photos ?? []).map((url, i) => (
-            <img key={i} src={url} alt="" className="w-full aspect-video object-cover rounded-lg" />
+            <div key={i} className="relative group">
+              <img src={url} alt="" className="w-full aspect-video object-cover rounded-lg" />
+              <button
+                onClick={() => handlePhotoDelete(url)}
+                className="absolute top-1 right-1 w-6 h-6 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                ✕
+              </button>
+            </div>
           ))}
         </div>
         <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} />

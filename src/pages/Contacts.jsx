@@ -6,6 +6,7 @@ import { profilesService } from '../services/profilesService'
 import { useAuth } from '../contexts/AuthContext'
 import { useProfiles } from '../hooks/useProfiles'
 import { useRealtime } from '../hooks/useRealtime'
+import { useToast } from '../contexts/ToastContext'
 import ColoredCard from '../components/ui/ColoredCard'
 import StatusBadge from '../components/ui/StatusBadge'
 
@@ -26,6 +27,7 @@ export default function Contacts() {
   const [form, setForm] = useState({ type: 'acheteur', name: '', phone: '', email: '', status: 'nouveau', vehicle_id: '', assigned_to: '', next_action: '', next_date: '', notes: '' })
   const { getColor } = useProfiles()
   const { user } = useAuth()
+  const toast = useToast()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const preVehicle = searchParams.get('vehicle')
@@ -78,7 +80,8 @@ export default function Contacts() {
       assigned_to: form.assigned_to || user.id,
       next_date: form.next_date || null,
     }
-    const { data } = await contactsService.create(payload)
+    const { data, error } = await contactsService.create(payload)
+    if (error) { toast('Erreur lors de la création', 'error'); return }
     if (data) {
       setShowForm(false)
       navigate(`/contacts/${data.id}`)

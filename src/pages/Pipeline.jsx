@@ -70,6 +70,7 @@ function VehicleCard({ vehicle, getColor, getProfile, onClick }) {
 
 export default function Pipeline() {
   const [vehicles, setVehicles] = useState([])
+  const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(true)
   const { getColor, getProfile } = useProfiles()
   const navigate = useNavigate()
@@ -92,8 +93,16 @@ export default function Pipeline() {
     }
   }, []))
 
-  const sold = vehicles.filter(v => v.status === 'vendu')
-  const active = vehicles.filter(v => v.status !== 'vendu')
+  const q = search.toLowerCase()
+  const matched = q
+    ? vehicles.filter(v =>
+        v.brand?.toLowerCase().includes(q) ||
+        v.model?.toLowerCase().includes(q) ||
+        v.source?.toLowerCase().includes(q)
+      )
+    : vehicles
+  const sold = matched.filter(v => v.status === 'vendu')
+  const active = matched.filter(v => v.status !== 'vendu')
 
   if (loading) {
     return (
@@ -121,6 +130,15 @@ export default function Pipeline() {
           Nouveau
         </button>
       </div>
+
+      {/* Search */}
+      <input
+        type="text"
+        placeholder="Rechercher marque, modèle, source..."
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500"
+      />
 
       {/* Sold banner */}
       {sold.length > 0 && (

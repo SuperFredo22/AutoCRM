@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { vehiclesService } from '../services/vehiclesService'
 import { profilesService } from '../services/profilesService'
 import { useAuth } from '../contexts/AuthContext'
+import { useToast } from '../contexts/ToastContext'
 
 const STATUSES = [
   { value: 'sourcing', label: 'Sourcing' },
@@ -34,6 +35,7 @@ export default function VehicleForm() {
   const isEdit = Boolean(id)
   const navigate = useNavigate()
   const { user } = useAuth()
+  const toast = useToast()
 
   const [profiles, setProfiles] = useState([])
   const [saving, setSaving] = useState(false)
@@ -79,9 +81,11 @@ export default function VehicleForm() {
       listing_price: form.listing_price ? Number(form.listing_price) : null,
     }
     if (isEdit) {
-      await vehiclesService.update(id, payload)
+      const { error } = await vehiclesService.update(id, payload)
+      if (error) { toast('Erreur lors de la mise à jour', 'error'); setSaving(false); return }
     } else {
-      const { data } = await vehiclesService.create(payload)
+      const { data, error } = await vehiclesService.create(payload)
+      if (error) { toast('Erreur lors de la création', 'error'); setSaving(false); return }
       if (data) { navigate(`/vehicles/${data.id}`); return }
     }
     setSaving(false)
@@ -153,7 +157,7 @@ export default function VehicleForm() {
         {margin !== null && (
           <div className={`rounded-lg p-3 flex items-center justify-between ${margin >= 0 ? 'bg-emerald-50 border border-emerald-200' : 'bg-red-50 border border-red-200'}`}>
             <span className="text-sm text-slate-700">Marge estimée</span>
-            <span className={`font-bold text-lg ${margin >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+            <span className={`font-bold text-lg ${margin >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
               {margin >= 0 ? '+' : ''}{formatPrice(margin)}
             </span>
           </div>
