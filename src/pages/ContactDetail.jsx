@@ -170,7 +170,7 @@ export default function ContactDetail() {
             <button
               key={s}
               onClick={() => contactsService.update(id, { status: s }).then(({ data }) => data && setContact(data))}
-              className={`flex-1 py-1.5 rounded text-xs font-medium transition-colors ${
+              className={`flex-1 py-2.5 rounded-lg text-xs font-medium transition-colors ${
                 contact.status === s
                   ? 'bg-blue-600 text-white'
                   : i < currentStatusIndex && contact.status !== 'perdu'
@@ -183,7 +183,7 @@ export default function ContactDetail() {
           ))}
           <button
             onClick={() => contactsService.update(id, { status: 'perdu' }).then(({ data }) => data && setContact(data))}
-            className={`px-2 py-1.5 rounded text-xs font-medium transition-colors ${contact.status === 'perdu' ? 'bg-red-600 text-white' : 'bg-slate-50 text-slate-400 hover:text-red-400'}`}
+            className={`px-3 py-2.5 rounded-lg text-xs font-medium transition-colors ${contact.status === 'perdu' ? 'bg-red-600 text-white' : 'bg-slate-50 text-slate-400 hover:text-red-500'}`}
           >
             Perdu
           </button>

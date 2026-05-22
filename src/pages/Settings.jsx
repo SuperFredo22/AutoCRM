@@ -73,7 +73,7 @@ function ProfileRow({ profile, isMe, saving, saved, onSave }) {
 
   return (
     <div className="flex items-center gap-3">
-      <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-slate-900 text-sm font-bold" style={{ backgroundColor: profile.color }}>
+      <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: profile.color }}>
         {name.slice(0, 1).toUpperCase()}
       </div>
       <input

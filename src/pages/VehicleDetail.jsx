@@ -142,7 +142,7 @@ export default function VehicleDetail() {
             <p className="text-slate-900 text-xl font-bold">{formatPrice(vehicle.listing_price)}</p>
             <p className="text-slate-400 text-sm">Prix achat : {formatPrice(vehicle.seller_price)}</p>
             {margin !== null && (
-              <p className={`text-lg font-bold mt-1 ${margin >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+              <p className={`text-lg font-bold mt-1 ${margin >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
                 {margin >= 0 ? '+' : ''}{formatPrice(margin)}
               </p>
             )}
@@ -179,7 +179,7 @@ export default function VehicleDetail() {
               key={s.value}
               disabled={statusChanging}
               onClick={() => handleStatusChange(s.value)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
+              className={`px-3 py-2.5 rounded-lg text-xs font-semibold border transition-colors ${
                 vehicle.status === s.value
                   ? 'bg-blue-600 border-blue-500 text-white'
                   : 'border-slate-200 text-slate-400 hover:border-slate-400 hover:text-slate-900'

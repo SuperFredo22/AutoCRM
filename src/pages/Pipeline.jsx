@@ -44,7 +44,7 @@ function VehicleCard({ vehicle, getColor, getProfile, onClick }) {
         <div>
           <p className="text-slate-900 text-sm font-medium">{formatPrice(vehicle.listing_price)}</p>
           {margin !== null && (
-            <p className={`text-xs font-medium ${margin >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+            <p className={`text-xs font-medium ${margin >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
               {margin >= 0 ? '+' : ''}{formatPrice(margin)}
             </p>
           )}
