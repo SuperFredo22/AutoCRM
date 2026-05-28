@@ -2,7 +2,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { contactsService } from '../services/contactsService'
 import { vehiclesService } from '../services/vehiclesService'
-import { profilesService } from '../services/profilesService'
 import { useProfiles } from '../hooks/useProfiles'
 import { useToast } from '../contexts/ToastContext'
 import StatusBadge from '../components/ui/StatusBadge'
@@ -28,7 +27,6 @@ export default function ContactDetail() {
   const [contact, setContact] = useState(null)
   const [activityLog, setActivityLog] = useState([])
   const [vehicles, setVehicles] = useState([])
-  const [profiles, setProfiles] = useState([])
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(false)
   const [form, setForm] = useState({})
@@ -39,13 +37,11 @@ export default function ContactDetail() {
       contactsService.getById(id),
       contactsService.getActivityLog(id),
       vehiclesService.getAll(),
-      profilesService.getAll(),
-    ]).then(([{ data: c }, { data: a }, { data: v }, { data: p }]) => {
+    ]).then(([{ data: c }, { data: a }, { data: v }]) => {
       setContact(c)
       setForm(c ?? {})
       setActivityLog(a ?? [])
       setVehicles(v ?? [])
-      setProfiles(p ?? [])
       setLoading(false)
     }).catch(() => setLoading(false))
   }, [id])

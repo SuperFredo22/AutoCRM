@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
+import { ProfilesProvider } from './contexts/ProfilesContext'
 import { ToastProvider } from './contexts/ToastContext'
 import AppLayout from './components/layout/AppLayout'
 import Login from './pages/Login'
@@ -17,24 +18,26 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <ToastProvider>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route element={<AppLayout />}>
-            <Route index element={<Navigate to="/pipeline" replace />} />
-            <Route path="/pipeline" element={<Pipeline />} />
-            <Route path="/vehicles" element={<VehicleList />} />
-            <Route path="/vehicles/new" element={<VehicleForm />} />
-            <Route path="/vehicles/:id" element={<VehicleDetail />} />
-            <Route path="/vehicles/:id/edit" element={<VehicleForm />} />
-            <Route path="/contacts" element={<Contacts />} />
-            <Route path="/contacts/:id" element={<ContactDetail />} />
-            <Route path="/agenda" element={<Agenda />} />
-            <Route path="/stats" element={<Stats />} />
-            <Route path="/settings" element={<Settings />} />
-          </Route>
-        </Routes>
-        </ToastProvider>
+        <ProfilesProvider>
+          <ToastProvider>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route element={<AppLayout />}>
+                <Route index element={<Navigate to="/pipeline" replace />} />
+                <Route path="/pipeline" element={<Pipeline />} />
+                <Route path="/vehicles" element={<VehicleList />} />
+                <Route path="/vehicles/new" element={<VehicleForm />} />
+                <Route path="/vehicles/:id" element={<VehicleDetail />} />
+                <Route path="/vehicles/:id/edit" element={<VehicleForm />} />
+                <Route path="/contacts" element={<Contacts />} />
+                <Route path="/contacts/:id" element={<ContactDetail />} />
+                <Route path="/agenda" element={<Agenda />} />
+                <Route path="/stats" element={<Stats />} />
+                <Route path="/settings" element={<Settings />} />
+              </Route>
+            </Routes>
+          </ToastProvider>
+        </ProfilesProvider>
       </AuthProvider>
     </BrowserRouter>
   )

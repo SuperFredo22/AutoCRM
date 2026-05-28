@@ -2,7 +2,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { contactsService } from '../services/contactsService'
 import { vehiclesService } from '../services/vehiclesService'
-import { profilesService } from '../services/profilesService'
 import { useAuth } from '../contexts/AuthContext'
 import { useProfiles } from '../hooks/useProfiles'
 import { useRealtime } from '../hooks/useRealtime'
@@ -18,14 +17,13 @@ function isOverdue(dateStr) {
 export default function Contacts() {
   const [contacts, setContacts] = useState([])
   const [vehicles, setVehicles] = useState([])
-  const [profiles, setProfiles] = useState([])
   const [search, setSearch] = useState('')
   const [filterType, setFilterType] = useState('all')
   const [filterStatus, setFilterStatus] = useState('all')
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState({ type: 'acheteur', name: '', phone: '', email: '', status: 'nouveau', vehicle_id: '', assigned_to: '', next_action: '', next_date: '', notes: '' })
-  const { getColor } = useProfiles()
+  const { getColor, profiles } = useProfiles()
   const { user } = useAuth()
   const toast = useToast()
   const navigate = useNavigate()
@@ -33,14 +31,12 @@ export default function Contacts() {
   const preVehicle = searchParams.get('vehicle')
 
   const load = useCallback(async () => {
-    const [{ data: c }, { data: v }, { data: p }] = await Promise.all([
+    const [{ data: c }, { data: v }] = await Promise.all([
       contactsService.getAll(),
       vehiclesService.getAll(),
-      profilesService.getAll(),
     ])
     setContacts(c ?? [])
     setVehicles(v ?? [])
-    setProfiles(p ?? [])
     if (preVehicle) {
       setForm(f => ({ ...f, vehicle_id: preVehicle }))
       setShowForm(true)

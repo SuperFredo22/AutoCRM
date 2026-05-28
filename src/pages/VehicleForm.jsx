@@ -1,7 +1,7 @@
 ﻿import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { vehiclesService } from '../services/vehiclesService'
-import { profilesService } from '../services/profilesService'
+import { useProfiles } from '../hooks/useProfiles'
 import { useAuth } from '../contexts/AuthContext'
 import { useToast } from '../contexts/ToastContext'
 
@@ -37,7 +37,7 @@ export default function VehicleForm() {
   const { user } = useAuth()
   const toast = useToast()
 
-  const [profiles, setProfiles] = useState([])
+  const { profiles } = useProfiles()
   const [saving, setSaving] = useState(false)
   const [form, setForm] = useState({
     type: 'achat',
@@ -54,7 +54,6 @@ export default function VehicleForm() {
   })
 
   useEffect(() => {
-    profilesService.getAll().then(({ data }) => setProfiles(data ?? []))
     if (isEdit) {
       vehiclesService.getById(id).then(({ data }) => {
         if (data) setForm(f => ({ ...f, ...data }))

@@ -66,17 +66,29 @@ export default function VehicleDetail() {
   }
 
   async function handlePhotoUpload(e) {
-    const file = e.target.files[0]
-    if (!file) return
+    const files = Array.from(e.target.files)
+    if (!files.length) return
     setUploading(true)
-    const { url, error } = await vehiclesService.uploadPhoto(id, file)
-    if (url) {
-      const newPhotos = [...(vehicle.photos ?? []), url]
-      const { data } = await vehiclesService.update(id, { photos: newPhotos })
-      if (data) { setVehicle(data); toast('Photo ajoutée') }
-    } else if (error) {
-      toast('Erreur lors du téléchargement', 'error')
+
+    const uploadedUrls = []
+    for (const file of files) {
+      const { url, error } = await vehiclesService.uploadPhoto(id, file)
+      if (url) {
+        uploadedUrls.push(url)
+      } else if (error) {
+        toast(`Erreur : ${file.name}`, 'error')
+      }
     }
+
+    if (uploadedUrls.length > 0) {
+      const newPhotos = [...(vehicle.photos ?? []), ...uploadedUrls]
+      const { data } = await vehiclesService.update(id, { photos: newPhotos })
+      if (data) {
+        setVehicle(data)
+        toast(uploadedUrls.length === 1 ? 'Photo ajoutée' : `${uploadedUrls.length} photos ajoutées`)
+      }
+    }
+
     setUploading(false)
     e.target.value = ''
   }
@@ -226,7 +238,7 @@ export default function VehicleDetail() {
             </div>
           ))}
         </div>
-        <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} />
+        <input ref={fileInputRef} type="file" accept="image/*" multiple className="hidden" onChange={handlePhotoUpload} />
         <button
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
@@ -235,7 +247,7 @@ export default function VehicleDetail() {
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
-          {uploading ? 'Téléchargement...' : 'Ajouter une photo'}
+          {uploading ? 'Téléchargement...' : 'Ajouter des photos'}
         </button>
       </Section>
 

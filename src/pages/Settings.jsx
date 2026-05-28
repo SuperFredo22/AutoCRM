@@ -1,23 +1,28 @@
-﻿import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { profilesService } from '../services/profilesService'
 import { useAuth } from '../contexts/AuthContext'
+import { useProfiles } from '../hooks/useProfiles'
+import { useToast } from '../contexts/ToastContext'
 
 export default function Settings() {
   const { user, refreshProfile } = useAuth()
-  const [profiles, setProfiles] = useState([])
+  const { profiles, refresh: refreshProfiles } = useProfiles()
+  const toast = useToast()
   const [saving, setSaving] = useState(null)
   const [saved, setSaved] = useState(null)
 
-  useEffect(() => {
-    profilesService.getAll().then(({ data }) => setProfiles(data ?? []))
-  }, [])
-
   async function handleSave(id, name) {
     setSaving(id)
-    await profilesService.update(id, { name })
-    if (id === user?.id) refreshProfile()
-    setSaved(id)
-    setTimeout(() => setSaved(null), 2000)
+    const { error } = await profilesService.update(id, { name })
+    if (error) {
+      toast('Erreur lors de la sauvegarde', 'error')
+    } else {
+      if (id === user?.id) refreshProfile()
+      refreshProfiles()
+      setSaved(id)
+      setTimeout(() => setSaved(null), 2000)
+      toast('Profil mis à jour')
+    }
     setSaving(null)
   }
 
@@ -77,19 +82,30 @@ function ProfileRow({ profile, isMe, saving, saved, onSave }) {
         {name.slice(0, 1).toUpperCase()}
       </div>
       <input
-        className="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-900 focus:outline-none focus:border-blue-500 text-sm"
+        className={`flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors ${
+          isMe
+            ? 'bg-slate-50 border-slate-200 text-slate-900'
+            : 'bg-slate-50 border-slate-100 text-slate-400 cursor-not-allowed'
+        }`}
         value={name}
-        onChange={e => setName(e.target.value)}
+        onChange={e => isMe && setName(e.target.value)}
+        readOnly={!isMe}
         placeholder="Prénom"
       />
-      {isMe && <span className="text-slate-400 text-xs shrink-0">Moi</span>}
-      <button
-        onClick={() => onSave(name)}
-        disabled={saving || name === profile.name}
-        className="px-3 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm rounded-lg font-medium shrink-0 transition-colors"
-      >
-        {saved ? '✓' : saving ? '...' : 'Sauver'}
-      </button>
+      {isMe ? (
+        <>
+          <span className="text-slate-400 text-xs shrink-0">Moi</span>
+          <button
+            onClick={() => onSave(name)}
+            disabled={saving || name === profile.name}
+            className="px-3 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm rounded-lg font-medium shrink-0 transition-colors"
+          >
+            {saved ? '✓' : saving ? '...' : 'Sauver'}
+          </button>
+        </>
+      ) : (
+        <span className="text-slate-300 text-xs shrink-0 w-14 text-center">—</span>
+      )}
     </div>
   )
 }
