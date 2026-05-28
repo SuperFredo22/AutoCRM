@@ -47,7 +47,9 @@ export default function ContactDetail() {
   }, [id])
 
   async function handleSave() {
-    const { data, error } = await contactsService.update(id, form)
+    // Strip relational/computed fields that are not columns in the contacts table
+    const { vehicles: _v, id: _id, created_at: _ca, created_by: _cb, updated_at: _ua, ...updates } = form
+    const { data, error } = await contactsService.update(id, updates)
     if (error) { toast('Erreur lors de la sauvegarde', 'error'); return }
     if (data) { setContact(data); setEditing(false); toast('Contact mis à jour') }
   }
